@@ -9,8 +9,7 @@ module.exports = {
 			authenticator: new IamAuthenticator({
 				apikey: "Qy-QfaO7JXoZRnGT9F_asj3Ccjprz9BNwcCEsdip-PzS",
 			}),
-			serviceUrl:
-				"https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/bf344751-9ccc-4fe1-b31b-e69971c88313",
+			serviceUrl: "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/bf344751-9ccc-4fe1-b31b-e69971c88313",
 		});
 
 		const params = {
@@ -19,9 +18,9 @@ module.exports = {
 			accept: "audio/wav",
 		};
 
-        const date = Date.now();
-        const fName = `${fileName}${date}.wav`;
-        const filepath = `${path.resolve(__dirname, '../../../frontend/public/' , 'audio')}`;
+		const date = Date.now();
+		const fName = `${fileName}${date}.wav`;
+		const filepath = `${path.resolve(__dirname,	"../../../frontend/public/", "audio")}`;
 
 		// Synthesize speech, correct the wav header, then save to disk
 		// (wav header requires a file length, but this is unknown until after the header is already generated and sent)
@@ -41,8 +40,9 @@ module.exports = {
 				console.log(err);
 			});
 
-            return {
-                filepath: `${filepath}\\${fName}`
-            };
-	}
+		return {
+			filename: fName
+            //filepath: `${filepath}\\${fName}`,
+		};
+	},
 };
