@@ -54,5 +54,5 @@ app.delete("/comment/:id", (req, res) => {
 
 // Setando o 'app' para escutar todas as requisições da porta especificada (3000 nesse caso)
 app.listen(port, () => {
-	console.log("App de Exemplo escutando na porta 3000!");
+	console.log("Escutando requisições na porta 3000!");
 });
