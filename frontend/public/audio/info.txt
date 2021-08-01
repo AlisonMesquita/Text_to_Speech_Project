@@ -1,0 +1,1 @@
+Um arquivo de áudio é gerado quando o comentário é adicionado, entretanto, ao apagar o comentário, o arquivo de áudio ainda continuará no diretório.

@@ -9,10 +9,17 @@ const connection = mysql.createConnection({
 	database: dbConfig.DB,
 });
 
-// open the MySQL connection
+// Abre a conexão
 connection.connect((error) => {
 	if (error) throw error;
 	console.log("Successfully connected to the database.");
+
+    // SQL que cria a tabela caso ela ainda não exista
+	let sql = "CREATE TABLE IF NOT EXISTS comment(id int primary key auto_increment, message varchar(255) not null, filename varchar(100) not null)";
+	connection.query(sql, function (err, result) {
+		if (err) throw err;
+		console.log("Table created or already exists!");
+	});
 });
 
 module.exports = connection;
