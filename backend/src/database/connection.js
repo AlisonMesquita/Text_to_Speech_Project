@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-const dbConfig = require("./db.config");
+const dbConfig = require("./db.config");    // Importando o arquivo de configuração do banco
 
 // Cria a conexão com as informações especificadas no módulo db.config
 const connection = mysql.createConnection({

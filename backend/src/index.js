@@ -14,7 +14,8 @@ app.get("/comment", (req, res) => {
 	const sqlSelect = "SELECT * FROM comment;";
 
 	sql.query(sqlSelect, (err, result) => {
-		res.send(result);
+        if (err) throw err;
+		res.send(result);   // Retorna o resultado da operação
 	});
 });
 
@@ -22,14 +23,15 @@ app.get("/comment", (req, res) => {
 app.post("/comment", async (req, res) => {
 	const { message } = req.body;
 
-	const tts = await textToSpeech.convertMessage(message);
+	const tts = await textToSpeech.convertMessage(message); // Passa o comentário para conversão e aguarda o retorno
 
-	const filename = tts.filename;
+	const filename = tts.filename;  // Pegando o nome do arquivo gerado
 
 	const sqlInsert = "INSERT INTO comment (message, filename) VALUES (?, ?);";
 
-	sql.query(sqlInsert, [message, filename], (err, result) => {
-		console.log(result);
+	sql.query(sqlInsert, [message, filename], (err, result) => {    // Inserindo o comentário e o nome do arquivo no banco
+		if (err) throw err;
+        console.log("Comment added.");
 	});
 
 	return res.status(200).json({
@@ -41,10 +43,10 @@ app.post("/comment", async (req, res) => {
 //DELETE
 app.delete("/comment/:id", (req, res) => {
 	let { id } = req.params;
-	console.log(id);
+	//console.log(id);
 
 	let sqlDelete = "DELETE FROM comment WHERE id = ?";
-	sql.query(sqlDelete, id, function (err, result) {
+	sql.query(sqlDelete, id, function (err, result) { // Deleta do banco a tupla correspondente ao ID fornecido no request
 		if (err) throw err;
 		console.log("Number of records deleted: " + result.affectedRows);
 	});
@@ -54,5 +56,5 @@ app.delete("/comment/:id", (req, res) => {
 
 // Setando o 'app' para escutar todas as requisições da porta especificada (3000 nesse caso)
 app.listen(port, () => {
-	console.log("Escutando requisições na porta 3000!");
+	console.log("Listening for requests on port 3000!");
 });

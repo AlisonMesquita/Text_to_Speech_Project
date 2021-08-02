@@ -18,8 +18,8 @@ module.exports = {
 			accept: "audio/wav",
 		};
 
-		const date = Date.now();
-		const fName = `${fileName}${date}.wav`;
+		const date = Date.now();    // Pegando o timestamp para adicionar ao nome do arquivo
+		const fName = `${fileName}${date}.wav`; // Concatena o nome inicial (audio) com o timestamp retornado
 		const filepath = `${path.resolve(__dirname,	"../../../frontend/public/", "audio")}`;
 
 		// Synthesize speech, correct the wav header, then save to disk
