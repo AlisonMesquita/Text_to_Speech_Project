@@ -1,18 +1,19 @@
 document.getElementById("btn").addEventListener("click", (e) => {
-	e.preventDefault();
+	e.preventDefault(); // Evita o reload indesejado da página
 	let input = document.getElementById("newComment").value;
 	//console.log(input);
 
-	if (input === "") {
+	if (input === "") { // Validação de envio em branco realizada apenas no front
 		window.alert("Não é possível enviar comentários em branco.");
 		return;
 	}
 
-	let comment = {
+	let comment = { // Criando o objeto que será enviado no POST junto do comentário inserido
 		message: input,
 	};
 	console.log(comment);
 
+    // POST
 	fetch("http://localhost:3000/comment/", {
 		method: "post",
 		headers: { "Content-Type": "application/json" },
@@ -37,11 +38,11 @@ async function getComments() {
 
 // Renderizando dinamicamente os comentários na tela
 async function renderComments() {
-	let comments = await getComments();
+	let comments = await getComments(); // Aguarda o retorno da function getComments que retornará os comentários salvos no banco
 	let html = "";
 	
-	comments.forEach((comment) => {		
-		let filePath = `./public/audio/${comment.filename}`;
+	comments.forEach((comment) => { // Loop pelos comentários retornados do banco
+		let filePath = `./public/audio/${comment.filename}`;    // Atribui o path do arquivo adicionando o nome armazenado
         //console.log(filePath);
 		let htmlSegment = `<div class="comment" id="${comment.id}">
                                 <div class="comment-box">
@@ -61,6 +62,7 @@ async function renderComments() {
 	container.innerHTML = html; // Adiciona o HTML gerado no forEach
 }
 
+// DELETE
 async function deleteComment(id) {
 	await fetch("http://localhost:3000/comment/" + id, {
 		method: "delete",
